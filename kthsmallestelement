@@ -1,3 +1,6 @@
+find the smallest kth element in the given array using heap technique;
+
+
 #include <iostream>
 #include <queue>
 #include <vector>
