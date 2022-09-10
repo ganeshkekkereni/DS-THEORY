@@ -1,0 +1,35 @@
+write an efficient program for printing k largest elements in an array. Elements in array can be in any order.
+
+For example, if given array is [1, 23, 12, 9, 30, 2, 50] and you are asked for the largest 3 elements i.e., k = 3 then your program should print 50, 30 and 23. . 
+
+
+
+#include <iostream>
+#include <queue>
+#include <vector>
+
+using namespace std;
+void max_heap(int arr[], int n, int k)
+{
+   priority_queue<int, vector<int>, greater<int>> maxh;  // for largest element we use min heap and visa versa
+   for(int i=0; i<n; i++){
+       maxh.push(arr[i]);
+       if(maxh.size()>k){
+           maxh.pop();
+       }
+   }
+  while(maxh.size()>0){
+      cout<<maxh.top()<<endl;
+      maxh.pop();
+  }
+}
+
+int main()
+{
+    int arr[] = { 7, 10, 4, 3, 15, 20};
+    int n = sizeof(arr)/sizeof(int);
+    int k;
+    cin>>k;
+    max_heap(arr, n, k);
+    return 0;
+}
