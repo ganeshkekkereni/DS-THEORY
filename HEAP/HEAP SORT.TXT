@@ -1,1 +1,126 @@
+HEAP SORT
+Heap sort is same as comparision sorting technique, its based on binary heap and it is same selection sort. find the minimum element swap its with correct postion.
+how does  heapify works:-
+    heapify consists of min heap or max heap 
+    min heap = parent element is lesser than the child nodes  ex:- 2 with child nodes 3, 4;
+    max heap = parent element is greater than the child nodes ex:- 4 with child nodess 2, 3;
+    
+Array = {1, 3, 5, 4, 6, 13, 10, 9, 8, 15, 17}
+Corresponding Complete Binary Tree is:
 
+                 1
+              /     \
+           3         5
+        /    \     /  \             __    left side must completely filled
+      4      6   13  10
+     / \    / \
+   9   8  15 17
+
+The task to build a Max-Heap from above array.
+
+Total Nodes = 11.
+Last Non-leaf node index = (11/2) – 1 = 4.
+Therefore, last non-leaf node = 6.
+
+To build the heap, heapify only the nodes: [1, 3, 5, 4, 6] in reverse order.
+
+Heapify 6: Swap 6 and 17.
+
+                 1
+              /     \
+           3         5
+        /    \      /  \
+     4      17   13  10
+    / \    /  \
+  9   8  15   6
+
+Heapify 4: Swap 4 and 9.
+
+                 1
+              /     \
+           3         5
+        /    \      /  \
+     9      17   13  10
+    / \    /  \
+  4   8  15   6
+
+Heapify 5: Swap 13 and 5.
+
+                 1
+              /     \
+           3         13
+        /    \      /  \
+     9      17   5   10
+    / \    /  \
+ 4   8  15   6
+
+Heapify 3: First Swap 3 and 17, again swap 3 and 15.
+
+                 1
+             /     \
+        17         13
+       /    \      /  \
+    9      15   5   10
+   / \    /  \
+ 4   8  3   6
+
+Heapify 1: First Swap 1 and 17, again swap 1 and 15, finally swap 1 and 6.
+
+                 17
+              /      \
+          15         13
+         /    \      /  \
+       9      6    5   10
+      / \    /  \
+    4   8  3    1
+    
+    
+HEAP SORT ALGORITHM:-
+
+first convert array into heap data structure then heapify into max heap. now delete max element element and replace it with the last node.
+repeats the process untill the heap size greater than one.
+
+Detailed Working of Heap Sort
+
+arr = {4, 10, 3, 5, 1}  where n = number of elements = 5
+step 1:- build complete binary tree
+                   4
+                 /   \
+                10    3
+               /  \
+              5    1
+           i = n/2-1 = 5/2-1 = 2.5-1 = 1.5 =~ 1; where we need heapify at the index 1;
+ step 2:- 
+                 10
+                /   \
+               4     3
+             /   \
+             5    1
+ step 3:-
+              10
+             /  \
+            5    3
+           / \
+          4   1    
+         Now it is in max heap
+         
+step 4:- now delete root node and place last leaf node in root postion
+                   1
+                /  \   
+               5    3   
+              /
+             4    arr = { 10 }
+         
+step 5:- now heapify the existing tree
+         here it is
+                 1                            5                                          1                     4                                    1         3
+                /  \      heapify            / \                                        / \     heapify       / \                                  /         /
+               5    3   ----------->        4   3   now delete top element  ------>    4   3   ---------->   1   3  now delete top element -----> 3    ---> 1
+              /                            /
+             4                            1      arr = { 5, 10}                                                      arr = { 4, 5, 10}
+             
+             now delete top element arr = { 3, 4, 5, 10}; and then arr = { 1, 3, 4, 5, 10};
+   heap sort = 1, 3, 4, 5, 10.
+               
+         
+           
