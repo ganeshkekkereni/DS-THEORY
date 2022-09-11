@@ -1,0 +1,60 @@
+Priority Queue Approach
+To solve this problem, find the K closest points to origin using priority queue; we will first create a min-heap of pairs in which we will store the distance of the point 
+from the origin and the point itself, and after that, we will traverse the min-heap till K. Simultaneously we will store all the points in our final array. After that,
+we will return the array.
+
+Algorithm
+To solve this problem, find the K closest points to origin using priority queue. We first need to create a function kClosestPoints() that takes three parameters: the array, size, and value K. 
+In the function, we will declare a priority queue of pairs which will store the distance and the coordinates of points in the increasing order. 
+We will now calculate the distance of every point from the origin, and then we will store the distance and the coordinates of a point in the priority queue.
+ After that, we will pick the priority queue’s first K elements, store them in the final array, and then return them.
+
+
+// C++ code for Find the K closest points to origin using Priority Queue
+#include <bits/stdc++.h>
+using namespace std;
+
+// function to find the K closest points from the origin
+vector<pair<int, int>> kClosestPoints(vector<pair<int, int>> points, int n, int k)
+{
+    // to store the answer
+    vector<pair<int, int>> ans;
+
+   // to store the in an increasing order
+    // according to their distance from the origin
+    priority_queue<int, vector<pair<int, pair<int, int>>>, greater<pair<int, pair<int, int>>>> p;
+
+    for (int i = 0; i < n; i++)
+    {
+        // calculating the distance of the point from the origin
+        int distance = points[i].first * points[i].first + points[i].second * points[i].second;
+        // storing the distance with the point in the priority queue
+        p.push({distance, {points[i].first, points[i].second}});
+    }
+
+   // taking out the K closest points from the
+    // priority queue and storing them
+    while (k--)
+    {
+        auto x = p.top();
+        ans.push_back({x.second.first, x.second.second});
+        p.pop();
+    }
+    return ans;
+}
+
+// Driver Code
+int main()
+{
+
+    int k = 3, n = 6;
+
+    vector<pair<int, int>> arr{{-9, -2}, {-10, 1}, {3, -8}, {4, 4}, {-9, 0}, {7, 7}};
+
+    vector<pair<int, int>> ans = kClosestPoints(arr, n, k);
+  
+    for (int i = 0; i < k; i++)
+    {
+        cout << "{" << ans[i].first << "," << ans[i].second << "} ";
+    }
+}
