@@ -1,1 +1,66 @@
+ALGORITHM:
 
+Take the arr and use unordered_map to have VALUE : FREQUENCY Table
+Then make a HEAP such that high frequency remains at TOP and when frequency is same, just keep in ascending order (Smaller at TOP)
+Then After full insertion into Heap.
+Pop one by one and copy it into the Array.
+
+
+#include <bits/stdc++.h>
+using namespace std;
+#define ppi pair<int,int>
+ 
+/*IMPORTANT: comparator works in prority_queue only if they are a class which has
+operator() overloaded in it (got this from stackoverflow) */
+class Compare {
+    public:
+        bool operator()(pair<int, int> a, pair<int, int> b)
+        {
+              //b is at top and a is at bottom - have that in mind
+            if(a.first == b.first) //when freq same
+                return a.second > b.second; //smaller val stays at top
+            return a.first < b.first; // higher freq stays at top
+        }
+};
+ 
+void solve(vector<int> &arr){
+    int N = arr.size();
+    unordered_map<int ,int> mpp; // val, freq
+    for(int a : arr){
+        mpp[a]++;
+    }
+    //max heap - as max wise freq elements is what needed
+    priority_queue<ppi,vector<ppi>, Compare> maxH;
+     
+    for( auto m : mpp){
+        maxH.push({m.second, m.first}); // freq, val
+    }
+    //now the max freq is at TOP of MAX heap
+     
+    int i=0; // to maintain index to copy
+    while(maxH.size()>0){
+        int val = maxH.top().second; //val
+        int freq = maxH.top().first; //freq
+         
+        while(freq-- ){
+            //freq - those many times make a copy
+            arr[i] = val;
+            i++;
+        }
+        maxH.pop(); // heapify happens and next top freq ele goes up
+    }
+     
+}
+ 
+int main()
+{
+    vector<int> vec{ 2, 5, 2, 8, 5, 6, 8, 8 };
+    int n = vec.size();
+  
+    solve(vec);
+  
+    for (int i = 0; i < n; i++)
+        cout << vec[i] << " ";
+      cout<<"\n";
+    return 0;
+}
